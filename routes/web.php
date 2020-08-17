@@ -17,10 +17,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('/projects', 'ProjectController@store')->middleware('auth');
-Route::get('/projects', 'ProjectController@index');
-Route::get('/projects/{project}','ProjectController@show');
+Route::group(['middleware'=>'auth'],function (){
+    Route::post('/projects', 'ProjectController@store');
+    Route::get('/projects', 'ProjectController@index');
+    Route::get('/projects/create','ProjectController@create');
+    Route::get('/projects/{project}','ProjectController@show');
+
+    Route::get('/home', 'HomeController@index')->name('home');
+});
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
