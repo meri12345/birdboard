@@ -19,8 +19,8 @@ class ProjectController extends Controller
             'desc'=>'required',
         ]);
 
-        auth()->user()->projects()->create($attr);
-        return redirect('/projects');
+        $project = auth()->user()->projects()->create($attr);
+        return redirect($project->path());
     }
 
     public function show(Project $project){
