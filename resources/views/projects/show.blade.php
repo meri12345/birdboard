@@ -12,7 +12,16 @@
                 <div class="mb-6">
                     <h1 class="mr-auto text-lg text-gray-600 mb-3">Tasks</h1>
                     @foreach ($project->tasks as $task)
-                    <div class="bg-white p-4 rounded shadow-lg mb-3">{{$task->body}}</div>
+                        <form action="{{$task->path()}}" method="POST">
+                            @csrf
+                            @method('PATCH')
+                            <div class="bg-white p-4 rounded shadow-lg mb-3">
+                                <div class="flex">
+                                    <input type="text" value="{{$task->body}}" name="body" class="w-full {{$task->completed ? 'text-gray-500' : ''}}">
+                                    <input type="checkbox" name="completed" onchange="this.form.submit()" {{$task->completed ? 'checked' : ''}}>
+                                </div>
+                            </div>
+                        </form>
                     @endforeach
                     <div class="bg-white p-4 rounded shadow-lg mb-3">
                         <form action="{{$project->path().'/tasks'}}" method="POST">
@@ -25,7 +34,18 @@
 
                 <div>
                     <h1 class="mr-auto text-lg text-gray-600 mb-3">General Notes</h1>
-                    <textarea class="bg-white p-4 rounded shadow-lg w-full">Lorem ipsum.</textarea>
+
+                    <form action="{{$project->path()}}" method="POST">
+                        @csrf
+                        @method('PATCH')
+                        <textarea
+                            name="notes"
+                            class="bg-white p-4 rounded shadow-lg w-full"
+                            placeholder="Anything spacial that you want to make note?"
+                        >{{$project->notes}}</textarea>
+                        <button>Add Notes</button>
+                    </form>
+
                 </div>
 
             </div>
