@@ -33,25 +33,41 @@ class ProjectController extends Controller
         return view('projects.create');
     }
 
+//    public function update(Project $project)
+//    {
+//        $this->authorize('update',$project);
+//
+//        if(\request()->has('notes')){
+//            $project->update(
+//                \request()->validate([
+//                    'notes'=>'min:3'
+//                ])
+//            );
+//        }
+//        else{
+//            $project->update(
+//                \request()->validate([
+//                    'title'=>'required',
+//                    'desc'=>'required'
+//                ])
+//            );
+//        }
+//
+//
+//        return redirect($project->path());
+//    }
+
     public function update(Project $project)
     {
         $this->authorize('update',$project);
 
-        if(\request()->has('notes')){
             $project->update(
                 \request()->validate([
-                    'notes'=>'min:3'
+                    'title'=>'sometimes|required',
+                    'desc'=>'sometimes|required',
+                    'notes'=>'nullable'
                 ])
             );
-        }
-        else{
-            $project->update(
-                \request()->validate([
-                    'title'=>'required',
-                    'desc'=>'required'
-                ])
-            );
-        }
 
 
         return redirect($project->path());

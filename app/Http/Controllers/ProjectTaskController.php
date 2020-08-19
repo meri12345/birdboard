@@ -17,12 +17,20 @@ class ProjectTaskController extends Controller
         return redirect($project->path());
     }
     public function update(Project $project, Task $task){
+
         $this->authorize('update',$task->project);
 
+        \request()->validate(['body'=>'required']);
         $task->update([
             'body'=>\request('body'),
-            'completed'=>\request()->has('completed') ? now() : null
         ]);
+        if (\request()->has('completed')){
+            $task->complete();
+        }
+        else{
+            $task->incomplete();
+        }
         return redirect($project->path());
     }
+
 }

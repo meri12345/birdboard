@@ -11,6 +11,11 @@ class Project extends Model
     public function path(){
         return '/projects/'.$this->id;
     }
+    public function createActivity($type){
+        $this->activities()->create([
+            'desc'=>$type
+        ]);
+    }
 
     public function owner(){
        return  $this->belongsTo(User::class);
@@ -24,5 +29,9 @@ class Project extends Model
 
     public function tasks(){
         return $this->hasMany(Task::class);
+    }
+
+    public function activities(){
+        return $this->hasMany(Activity::class);
     }
 }
