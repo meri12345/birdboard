@@ -7,13 +7,27 @@ use Illuminate\Database\Eloquent\Model;
 class Project extends Model
 {
     protected $guarded=[];
+    public $old=[];
 
     public function path(){
         return '/projects/'.$this->id;
     }
     public function createActivity($type){
+
+      $this->old['created_at']= '';
+      $this->old['updated_at']='';
+
+      $current = $this->getAttributes();
+      $current['created_at']='';
+      $current['updated_at']='';
+
         $this->activities()->create([
-            'desc'=>$type
+
+            'desc'=>$type,
+            'changes'=>$type=='project_updated' ? [
+                'before'=>array_diff($this->old,$current),
+                'after'=>array_diff($current,$this->old)
+            ] : null
         ]);
     }
 

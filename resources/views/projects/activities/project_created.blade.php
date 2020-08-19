@@ -1,1 +1,1 @@
-You created {{$activity->project->title}}
+You created "{{$activity->project->title}}"
