@@ -37,11 +37,28 @@ class ProjectController extends Controller
     {
         $this->authorize('update',$project);
 
-        $project->update([
-            'notes'=>\request('notes')
-        ]);
+        if(\request()->has('notes')){
+            $project->update(
+                \request()->validate([
+                    'notes'=>'min:3'
+                ])
+            );
+        }
+        else{
+            $project->update(
+                \request()->validate([
+                    'title'=>'required',
+                    'desc'=>'required'
+                ])
+            );
+        }
+
 
         return redirect($project->path());
+    }
+
+    public function edit(Project $project){
+        return view('projects.edit',compact('project'));
     }
 
 }

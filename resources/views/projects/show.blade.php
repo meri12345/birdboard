@@ -3,7 +3,7 @@
 @section('content')
     <header class="flex items-center mb-3 py-4">
         <h1 class="mr-auto text-gray-600"><a href="/projects">My projects</a> / {{$project->title}}</h1>
-        <a class="text-white bg-blue-300 rounded-lg p-3 shadow text-decoration-none" href="/projects/create">Add Task</a>
+        <a class="text-white bg-blue-300 rounded-lg p-3 shadow text-decoration-none" href="{{$project->path().'/edit'}}">Edit Project</a>
     </header>
 
     <main>
@@ -43,6 +43,9 @@
                             class="bg-white p-4 rounded shadow-lg w-full"
                             placeholder="Anything spacial that you want to make note?"
                         >{{$project->notes}}</textarea>
+                        @error('notes')
+                            <p class="text-red-500 text-sm">{{$message}}</p>
+                        @enderror
                         <button>Add Notes</button>
                     </form>
 
