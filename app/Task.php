@@ -40,6 +40,7 @@ class task extends Model
     public function createActivity($type){
         $this->activities()->create([
             'desc'=>$type,
+            'user_id'=>auth()->id(),
             'project_id'=>$this->project->id
         ]);
     }

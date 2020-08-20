@@ -24,6 +24,7 @@ class Project extends Model
         $this->activities()->create([
 
             'desc'=>$type,
+            'user_id'=>auth()->id(),
             'changes'=>$type=='project_updated' ? [
                 'before'=>array_diff($this->old,$current),
                 'after'=>array_diff($current,$this->old)
@@ -47,5 +48,13 @@ class Project extends Model
 
     public function activities(){
         return $this->hasMany(Activity::class)->latest();
+    }
+
+    public function members(){
+        return $this->belongsToMany(User::class, 'project_members')->withTimestamps();
+    }
+
+    public function invite(User $user){
+        return $this->members()->attach($user);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Observers;
 
 use App\Activity;
 use App\Project;
+use Illuminate\Support\Facades\DB;
 
 class ProjectObserver
 {
@@ -37,7 +38,8 @@ class ProjectObserver
      */
     public function deleted(Project $project)
     {
-        //
+
+        DB::delete('DELETE FROM activities WHERE project_id='.$project->id);
     }
 
     /**
@@ -59,7 +61,7 @@ class ProjectObserver
      */
     public function forceDeleted(Project $project)
     {
-        //
+        dd('force');
     }
 
     public function updating(Project $project){
