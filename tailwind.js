@@ -11,6 +11,9 @@ module.exports = {
       lg: '1024px',
       xl: '1280px',
     },
+      theme:{
+        page: 'var(--page-background-color)'
+      },
     colors: {
       transparent: 'transparent',
       current: 'currentColor',
