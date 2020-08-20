@@ -6,9 +6,9 @@
                 <h1 class="mr-auto text-gray-600"><a href="/projects">My projects</a> / {{$project->title}}</h1>
 
             <div class="flex items-center">
-                <div class="mr-2">
+                <div class="flex">
                     @foreach($project->members as $member)
-                        <img class="rounded-full" src="https://gravatar.com/avatar/{{md5($member->email)}}?s=40" title="{{$member->email}}" alt="{{$member->name}}">
+                        <img class="rounded-full mr-2" src="https://gravatar.com/avatar/{{md5($member->email)}}?s=40" title="{{$member->email}}" alt="{{$member->name}}">
                     @endforeach
                 </div>
                 <img class="rounded-full" src="https://gravatar.com/avatar/{{md5($project->owner->email)}}?s=40" title="{{$project->owner->email}}" alt="{{$member->name}}">
@@ -62,15 +62,19 @@
                         @error('notes')
                             <p class="text-red-500 text-sm">{{$message}}</p>
                         @enderror
-                        <button>Add Notes</button>
+                        <button class="text-white bg-blue-300 rounded-lg p-3 shadow text-decoration-none ml-4">Add Notes</button>
                     </form>
-
                 </div>
 
             </div>
             <div class="lg:w-1/4 px-3">
                 @include('projects.card')
                 @include('projects.activity')
+
+                @if($project->owner->is(auth()->user()))
+                @include('projects.invite')
+                @endif
+
             </div>
         </div>
     </main>
