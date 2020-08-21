@@ -20,8 +20,15 @@ class ProjectController extends Controller
            'notes'=>'max:1000'
         ]);
 
-        $project = auth()->user()->projects()->create($attr);
-        return redirect($project->path());
+       $project = auth()->user()->projects()->create($attr);
+
+       if(\request()->has('tasks')){
+           foreach (\request('tasks') as $task){
+                $project->addTask($task['value']);
+           }
+       }
+
+        return redirect('/projects');
     }
 
     public function show(Project $project){

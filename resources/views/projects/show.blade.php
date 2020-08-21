@@ -11,7 +11,7 @@
                         <img class="rounded-full mr-2" src="https://gravatar.com/avatar/{{md5($member->email)}}?s=40" title="{{$member->email}}" alt="{{$member->name}}">
                     @endforeach
                 </div>
-                <img class="rounded-full" src="https://gravatar.com/avatar/{{md5($project->owner->email)}}?s=40" title="{{$project->owner->email}}" alt="{{$member->name}}">
+                <img class="rounded-full" src="https://gravatar.com/avatar/{{md5($project->owner->email)}}?s=40" title="{{$project->owner->email}}" alt="{{$project->owner->name}}">
 
                 <div>
     <a class="text-white bg-blue-300 rounded-lg p-3 shadow text-decoration-none ml-4" href="{{$project->path().'/edit'}}">Edit Project</a>
